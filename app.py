@@ -96,19 +96,20 @@ user_selection = {
 
 def menu():
     userid = input(USER)
-    print("You have entered "+userid)
     password = input(PASSWORD)
-    print("You have Password "+password)
-    selection = input(START).lower()
-    while selection != 'q':
-        if selection in user_selection:
-            selected_action = user_selection[selection]
-            selected_action()
-        else:
-            print("Unknown command. Please choose within available options: 'a', 'f', 'l' or 'q' to close the app.")
-        selection = input(START)
+    if(userid == correctUser and password == correctPassword ):
+        print('Login Successfull')
+        selection = input(START).lower()
+        while selection != 'q':
+            if selection in user_selection:
+                selected_action = user_selection[selection]
+                selected_action()
+            else:
+                print("Unknown command. Please choose within available options: 'a', 'f', 'l' or 'q' to close the app.")
+            selection = input(START)
+    else:
+        print('You have entered wrong credentials, exiting app')
     print('Thank you for using the app. See you next time!')
-
 
 if __name__ == '__main__':
     menu()
