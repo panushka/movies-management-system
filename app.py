@@ -7,7 +7,8 @@ movies = []
 START = "\nEnter 'a' to add a movie, \n 'l' to see your movies, \n 'f' to find a movie by title, \n 'c' to see the chart, \n or 'q' to quit: "
 USER = "\nEnter user id : "
 PASSWORD = "\nEnter password : "
-
+correctUser = "anushka"
+correctPassword = "P@shtekar"
 
 
 def db():
