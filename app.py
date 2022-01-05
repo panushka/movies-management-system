@@ -11,6 +11,7 @@ correctUser = "anushka"
 correctPassword = "P@shtekar"
 
 
+
 def db():
 
     mydb = mysql.connector.connect(
@@ -60,12 +61,15 @@ def chart():
     plt.show()
 
 def list_movies():
-    quantity = len(movies)
-    titles = [movie['title'] for movie in movies]
-    titles = ', '.join(titles)
 
-    if quantity:
-        print(f'You have following movies in collection: {titles}. In total you have {quantity} {"movie" if quantity == 1 else "movies"}.')
+    mydb = db()
+    mycursor = mydb.cursor()
+    mycursor.execute("select * from movies;")
+    myresult = mycursor.fetchall()
+
+    if myresult:
+        for x in myresult:
+            print(x)
     else:
         print('There are no movies in you collection.')
 
@@ -80,11 +84,16 @@ def print_movie_info(movie):
 
 def find_title():
     search_title = input('Enter title you are looking for: ')
-    for movie in movies:
-        if movie['title'] == search_title:
-            print_movie_info(movie)
-        else:
-            print('Requested title was not found in the collection.')
+    mydb = db()
+    mycursor = mydb.cursor()
+    sql = "select * from movies WHERE movietitle = %s"
+    value = (search_title,)
+    mycursor.execute(sql,value)
+    myresult = mycursor.fetchall()
+    if myresult:
+        for x in myresult:
+            print(x)
+    
 
 
 user_selection = {
@@ -111,6 +120,7 @@ def menu():
     else:
         print('You have entered wrong credentials, exiting app')
     print('Thank you for using the app. See you next time!')
+
 
 if __name__ == '__main__':
     menu()
